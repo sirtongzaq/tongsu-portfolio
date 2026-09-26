@@ -1,5 +1,6 @@
 ```vue
 <script setup lang="ts">
+import MotionReveal from "../common/MotionReveal.vue";
 const skillsRow1 = [
   { name: "Java", icon: "☕" },
   { name: "Spring Boot", icon: "🌱" },
@@ -30,86 +31,90 @@ const skillsRow2 = [
 
     <div class="relative">
       <!-- Section heading -->
-      <div class="mx-auto mb-16 max-w-6xl px-6 text-center">
-        <p
-          class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-primary"
-        >
-          Technologies
-        </p>
+      <MotionReveal>
+        <div class="mx-auto mb-16 max-w-6xl px-6 text-center">
+          <p
+            class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-primary"
+          >
+            Technologies
+          </p>
 
-        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Skills &amp; Tools
-        </h2>
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Skills &amp; Tools
+          </h2>
 
-        <p class="mx-auto mt-5 max-w-2xl text-muted">
-          Technologies and tools I use to build modern, scalable applications.
-        </p>
-      </div>
+          <p class="mx-auto mt-5 max-w-2xl text-muted">
+            Technologies and tools I use to build modern, scalable applications.
+          </p>
+        </div>
+      </MotionReveal>
 
       <!-- Row 1 -->
-      <div class="marquee mb-5">
-        <div class="marquee-track animate-marquee-left">
-          <!-- Original -->
-          <div
-            v-for="skill in skillsRow1"
-            :key="`row1-${skill.name}`"
-            class="skill-card"
-          >
-            <span class="skill-icon">
-              {{ skill.icon }}
-            </span>
+      <MotionReveal :delay="0.1">
+        <div class="marquee mb-5">
+          <div class="marquee-track animate-marquee-left">
+            <!-- Original -->
+            <div
+              v-for="skill in skillsRow1"
+              :key="`row1-${skill.name}`"
+              class="skill-card"
+            >
+              <span class="skill-icon">
+                {{ skill.icon }}
+              </span>
 
-            <span>{{ skill.name }}</span>
-          </div>
+              <span>{{ skill.name }}</span>
+            </div>
 
-          <!-- Duplicate -->
-          <div
-            v-for="skill in skillsRow1"
-            :key="`row1-copy-${skill.name}`"
-            class="skill-card"
-            aria-hidden="true"
-          >
-            <span class="skill-icon">
-              {{ skill.icon }}
-            </span>
+            <!-- Duplicate -->
+            <div
+              v-for="skill in skillsRow1"
+              :key="`row1-copy-${skill.name}`"
+              class="skill-card"
+              aria-hidden="true"
+            >
+              <span class="skill-icon">
+                {{ skill.icon }}
+              </span>
 
-            <span>{{ skill.name }}</span>
+              <span>{{ skill.name }}</span>
+            </div>
           </div>
         </div>
-      </div>
-
+      </MotionReveal>
       <!-- Row 2 -->
-      <div class="marquee">
-        <div class="marquee-track animate-marquee-right">
-          <!-- Original -->
-          <div
-            v-for="skill in skillsRow2"
-            :key="`row2-${skill.name}`"
-            class="skill-card"
-          >
-            <span class="skill-icon">
-              {{ skill.icon }}
-            </span>
+      <MotionReveal :delay="0.2">
+        <div class="marquee">
+          <div class="marquee-track animate-marquee-right">
+            <!-- Original -->
+            <div
+              v-for="skill in skillsRow2"
+              :key="`row2-${skill.name}`"
+              class="skill-card"
+            >
+              <span class="skill-icon">
+                {{ skill.icon }}
+              </span>
 
-            <span>{{ skill.name }}</span>
-          </div>
+              <span>{{ skill.name }}</span>
+            </div>
 
-          <!-- Duplicate -->
-          <div
-            v-for="skill in skillsRow2"
-            :key="`row2-copy-${skill.name}`"
-            class="skill-card"
-            aria-hidden="true"
-          >
-            <span class="skill-icon">
-              {{ skill.icon }}
-            </span>
+            <!-- Duplicate -->
+            <div
+              v-for="skill in skillsRow2"
+              :key="`row2-copy-${skill.name}`"
+              class="skill-card"
+              aria-hidden="true"
+            >
+              <span class="skill-icon">
+                {{ skill.icon }}
+              </span>
 
-            <span>{{ skill.name }}</span>
+              <span>{{ skill.name }}</span>
+            </div>
           </div>
         </div>
-      </div>
-
+      </MotionReveal>
       <!-- Edge fade -->
       <div
         class="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent sm:w-40"
