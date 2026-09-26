@@ -10,7 +10,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/in/narongrit-uppalabat-397289406",
     icon: "linkedin",
   },
 ];

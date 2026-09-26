@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const email = "your.email@example.com";
+const email = "sirtongzaq@gmail.com";
 </script>
 <template>
   <section id="contact" class="relative overflow-hidden py-24 sm:py-32">
