@@ -96,7 +96,7 @@ const socialLinks = [
       <!-- Bottom -->
       <div class="border-t border-border py-6 text-center text-sm text-muted">
         <p>
-          © {{ currentYear }} Tongsu. Built with
+          © {{ currentYear }} Narongrit Uppalabat. Built with
           <span class="text-primary">Vue</span>
           &amp;
           <span class="text-primary">Tailwind CSS</span>.

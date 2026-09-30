@@ -6,7 +6,8 @@ const sections = [
   { id: "home", label: "Scroll to explore", target: "about" },
   { id: "about", label: "Scroll to explore", target: "skills" },
   { id: "skills", label: "Scroll to explore", target: "experience" },
-  { id: "experience", label: "Scroll to explore", target: "projects" },
+  { id: "experience", label: "Scroll to explore", target: "education" },
+  { id: "education", label: "Scroll to explore", target: "projects" },
   { id: "projects", label: "Scroll to explore", target: "contact" },
   { id: "contact", label: "Scroll to top", target: "home" },
 ];

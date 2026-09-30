@@ -3,7 +3,10 @@ import { motion } from "motion-v";
 import { skills } from "../../data/skills";
 const socialLinks = [
   { name: "GitHub", href: "https://github.com/sirtongzaq" },
-  { name: "LinkedIn", href: "#" },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/narongrit-uppalabat-397289406",
+  },
 ];
 
 // Floating skill labels: every skill from data/skills.ts, laid out on two
@@ -94,7 +97,8 @@ const floatingLabels = [
           :transition="{ duration: 0.6, delay: 0.25 }"
         >
           <p class="text-xl font-medium text-foreground sm:text-2xl">
-            Software Developer
+            Narongrit Uppalabat
+            <span class="text-muted">· Software Developer</span>
           </p>
           <p class="mt-3 max-w-xl text-base leading-7 text-muted sm:text-lg">
             I build scalable backend systems, modern web applications, and cloud
@@ -129,6 +133,16 @@ const floatingLabels = [
             :transition="{ duration: 0.2 }"
           >
             Contact Me
+          </motion.a>
+          <motion.a
+            href="/Tongsu_Resume.pdf"
+            download="Tongsu_Resume.pdf"
+            class="rounded-lg border border-border px-6 py-3 font-medium text-foreground hover:border-primary/50 hover:bg-surface"
+            :whileHover="{ y: -2 }"
+            :whilePress="{ scale: 0.97 }"
+            :transition="{ duration: 0.2 }"
+          >
+            Download CV ↓
           </motion.a>
         </motion.div>
         <motion.div

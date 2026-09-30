@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import { motion, AnimatePresence } from "motion-v";
 import { useTheme } from "../../composables/useTheme";
+import { openResume } from "../../composables/useResume";
 
 const isOpen = ref(false);
 const { theme, init: initTheme, toggle: toggleTheme } = useTheme();
@@ -11,6 +12,7 @@ const navItems = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
+  { name: "Education", href: "#education" },
   { name: "Projects", href: "#projects" },
 ];
 
@@ -71,6 +73,15 @@ const closeMenu = () => {
             </template>
             <path v-else d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
           </svg>
+        </button>
+
+        <!-- Resume -->
+        <button
+          type="button"
+          class="hidden rounded-full border border-foreground/15 px-4 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-foreground/5 md:block"
+          @click="openResume"
+        >
+          Resume
         </button>
 
         <!-- Desktop CTA -->
@@ -145,6 +156,17 @@ const closeMenu = () => {
             {{ item.name }}
           </motion.span>
         </a>
+
+        <button
+          type="button"
+          class="block w-full rounded-xl px-4 py-3 text-left text-sm text-muted transition-colors hover:bg-foreground/5 hover:text-foreground"
+          @click="
+            closeMenu();
+            openResume();
+          "
+        >
+          Resume
+        </button>
 
         <div class="my-2 h-px bg-foreground/10" />
 
