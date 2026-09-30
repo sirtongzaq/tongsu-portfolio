@@ -21,12 +21,12 @@ const email = "sirtongzaq@gmail.com";
               background-image:
                 linear-gradient(
                   to right,
-                  rgba(255, 255, 255, 0.04) 1px,
+                  color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
                   transparent 1px
                 ),
                 linear-gradient(
                   to bottom,
-                  rgba(255, 255, 255, 0.04) 1px,
+                  color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
                   transparent 1px
                 );
               background-size: 32px 32px;

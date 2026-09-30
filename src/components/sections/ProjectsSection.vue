@@ -1,6 +1,46 @@
 <script setup lang="ts">
 import MotionReveal from "../common/MotionReveal.vue";
-const projects = [
+
+// Drop screenshots into src/assets/projects/ named "<slug>.png|jpg|webp"
+// (e.g. laewtae.png). They are picked up automatically; without one, a
+// decorative fallback is shown.
+const shots = import.meta.glob("../../assets/projects/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+const shotFor = (slug?: string) =>
+  slug
+    ? Object.entries(shots).find(([path]) =>
+        path.split("/").pop()!.startsWith(`${slug}.`),
+      )?.[1]
+    : undefined;
+
+type Project = {
+  title: string;
+  slug?: string;
+  description: string;
+  highlights?: string[];
+  technologies: string[];
+  github: string;
+  demo: string;
+};
+
+const projects: Project[] = [
+  {
+    title: "Laewtae (แล้วแต่)",
+    slug: "laewtae",
+    description:
+      "A free web app that ends the “what should we eat?” debate. Spin a wheel solo, or vote and swipe with friends in real time. No login required.",
+    highlights: [
+      "Realtime rooms: presence, ready-check, auto countdowns",
+      "Tie-break wheel synced across every device",
+      "Row Level Security, room expiry and batch cleanup on free tier",
+    ],
+    technologies: ["SvelteKit", "Svelte 5", "Tailwind v4", "Supabase", "Vercel"],
+    github: "https://github.com/sirtongzaq/laewtae-app",
+    demo: "https://laewtae-app.vercel.app",
+  },
   {
     title: "Project One",
     description:
@@ -59,12 +99,28 @@ const projects = [
           <article
             v-for="(project, index) in projects"
             :key="project.title"
-            class="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface/50 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5"
+            :class="[
+              'group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface/50 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5',
+              index === 0 ? 'lg:col-span-3 lg:flex-row' : '',
+            ]"
           >
             <!-- Project visual -->
             <div
-              class="relative flex h-48 items-center justify-center overflow-hidden border-b border-border bg-background"
+              :class="[
+                'relative flex items-center justify-center overflow-hidden border-b border-border bg-background',
+                index === 0
+                  ? 'h-56 lg:h-auto lg:w-1/2 lg:border-r lg:border-b-0'
+                  : 'h-48',
+              ]"
             >
+              <img
+                v-if="shotFor(project.slug)"
+                :src="shotFor(project.slug)"
+                :alt="`${project.title} screenshot`"
+                loading="lazy"
+                class="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+              />
+              <template v-else>
               <!-- Decorative grid -->
               <div
                 class="absolute inset-0 opacity-30"
@@ -72,12 +128,12 @@ const projects = [
                   background-image:
                     linear-gradient(
                       to right,
-                      rgba(255, 255, 255, 0.05) 1px,
+                      color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
                       transparent 1px
                     ),
                     linear-gradient(
                       to bottom,
-                      rgba(255, 255, 255, 0.05) 1px,
+                      color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
                       transparent 1px
                     );
                   background-size: 24px 24px;
@@ -88,13 +144,32 @@ const projects = [
               >
                 {{ String(index + 1).padStart(2, "0") }}
               </div>
+              </template>
             </div>
             <!-- Content -->
-            <div class="flex flex-1 flex-col p-6">
+            <div
+              :class="[
+                'flex flex-1 flex-col p-6',
+                index === 0 ? 'lg:justify-center lg:p-10' : '',
+              ]"
+            >
               <h3 class="text-xl font-semibold">{{ project.title }}</h3>
-              <p class="mt-3 flex-1 text-sm leading-7 text-muted">
+              <p class="mt-3 text-sm leading-7 text-muted">
                 {{ project.description }}
               </p>
+              <ul
+                v-if="project.highlights"
+                class="mt-4 space-y-2 text-sm text-muted"
+              >
+                <li
+                  v-for="h in project.highlights"
+                  :key="h"
+                  class="flex gap-2 leading-6"
+                >
+                  <span class="text-primary" aria-hidden="true">›</span>{{ h }}
+                </li>
+              </ul>
+              <div class="flex-1" />
               <!-- Technologies -->
               <div class="mt-5 flex flex-wrap gap-2">
                 <span

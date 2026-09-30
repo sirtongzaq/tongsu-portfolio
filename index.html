@@ -11,6 +11,15 @@
       rel="stylesheet"
     />
     <title>tongsu.</title>
+    <script>
+      // Apply saved theme before first paint (default: dark)
+      try {
+        var t = localStorage.getItem("tongsu:theme");
+        document.documentElement.dataset.theme = t === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>

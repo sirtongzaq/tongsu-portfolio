@@ -1,9 +1,11 @@
-```vue
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { motion, AnimatePresence } from "motion-v";
+import { useTheme } from "../../composables/useTheme";
 
 const isOpen = ref(false);
+const { theme, init: initTheme, toggle: toggleTheme } = useTheme();
+onMounted(initTheme);
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -21,20 +23,12 @@ const closeMenu = () => {
 <template>
   <header class="fixed inset-x-0 top-0 z-50">
     <nav
-      class="mx-auto mt-3 flex h-12 max-w-5xl items-center justify-between rounded-full border border-white/[0.08] bg-background/70 px-4 shadow-lg shadow-black/5 backdrop-blur-xl sm:px-5"
+      class="mx-auto mt-3 flex h-12 w-[calc(100%-2rem)] max-w-5xl items-center justify-between rounded-full border border-foreground/10 bg-background/70 px-4 shadow-lg shadow-black/5 backdrop-blur-xl sm:px-5"
     >
       <!-- Logo -->
       <a href="#home" class="group flex items-center gap-2" @click="closeMenu">
-        <span
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-primary to-sky-400 text-[11px] font-bold text-white shadow-sm shadow-primary/20 transition-transform duration-300 group-hover:scale-105"
-        >
-          TS
-        </span>
-
-        <span
-          class="hidden text-sm font-medium tracking-tight text-foreground sm:block"
-        >
-          Tongsu
+        <span class="text-sm font-medium tracking-tight text-foreground">
+          Tongsu<span class="text-primary">.</span>
         </span>
       </a>
 
@@ -44,26 +38,56 @@ const closeMenu = () => {
           v-for="item in navItems"
           :key="item.name"
           :href="item.href"
-          class="rounded-full px-3 py-1.5 text-sm text-muted transition-colors duration-200 hover:bg-white/[0.05] hover:text-foreground"
+          class="rounded-full px-3 py-1.5 text-sm text-muted transition-colors duration-200 hover:bg-foreground/5 hover:text-foreground"
         >
           {{ item.name }}
         </a>
       </div>
 
-      <!-- Desktop CTA -->
-      <a
-        href="#contact"
-        class="hidden rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background transition-all duration-200 hover:bg-white hover:shadow-lg hover:shadow-white/5 md:block"
-      >
-        Let's talk
-      </a>
+      <div class="flex items-center gap-2">
+        <!-- Theme toggle -->
+        <button
+          type="button"
+          :aria-label="
+            theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+          "
+          class="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-foreground/5 hover:text-foreground"
+          @click="toggleTheme"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            class="h-[18px] w-[18px]"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <template v-if="theme === 'dark'">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              />
+            </template>
+            <path v-else d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+          </svg>
+        </button>
 
-      <!-- Mobile button -->
+        <!-- Desktop CTA -->
+        <a
+          href="#contact"
+          class="hidden rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background transition-transform duration-300 hover:bg-foreground/85 hover:shadow-lg hover:shadow-foreground/5 md:block hover:scale-105"
+        >
+          Let's talk
+        </a>
+
+        <!-- Mobile button -->
       <button
         type="button"
         aria-label="Toggle menu"
         :aria-expanded="isOpen"
-        class="relative flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-white/[0.05] hover:text-foreground md:hidden"
+        class="relative flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-foreground/5 hover:text-foreground md:hidden"
         @click="isOpen = !isOpen"
       >
         <span
@@ -76,6 +100,7 @@ const closeMenu = () => {
           :class="isOpen ? '-rotate-45' : 'translate-y-1'"
         />
       </button>
+      </div>
     </nav>
 
     <!-- Mobile menu -->
@@ -101,13 +126,13 @@ const closeMenu = () => {
           duration: 0.2,
           ease: [0.22, 1, 0.36, 1],
         }"
-        class="mx-3 mt-2 rounded-2xl border border-white/[0.08] bg-background/90 p-2 shadow-2xl shadow-black/20 backdrop-blur-2xl md:hidden"
+        class="mx-4 mt-2 rounded-2xl border border-foreground/10 bg-background/90 p-2 shadow-2xl shadow-black/20 backdrop-blur-2xl md:hidden"
       >
         <a
           v-for="(item, index) in navItems"
           :key="item.name"
           :href="item.href"
-          class="block rounded-xl px-4 py-3 text-sm text-muted transition-colors hover:bg-white/[0.05] hover:text-foreground"
+          class="block rounded-xl px-4 py-3 text-sm text-muted transition-colors hover:bg-foreground/5 hover:text-foreground"
           @click="closeMenu"
         >
           <motion.span
@@ -122,7 +147,7 @@ const closeMenu = () => {
           </motion.span>
         </a>
 
-        <div class="my-2 h-px bg-white/[0.06]" />
+        <div class="my-2 h-px bg-foreground/10" />
 
         <a
           href="#contact"

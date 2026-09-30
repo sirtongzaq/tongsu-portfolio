@@ -1,9 +1,31 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
+import { skills } from "../../data/skills";
 const socialLinks = [
   { name: "GitHub", href: "https://github.com/sirtongzaq" },
   { name: "LinkedIn", href: "#" },
 ];
+
+// Floating skill labels: every skill from data/skills.ts, laid out on two
+// ellipses around the center card (inner: first 6, outer: the rest) so they
+// never overlap. Add a skill there and it shows up here automatically.
+const INNER = 6;
+function ring(names: string[], rx: number, ry: number, offsetDeg: number) {
+  return names.map((name, i) => {
+    const a = ((offsetDeg + (360 / names.length) * i) * Math.PI) / 180;
+    return { name, x: Math.round(rx * Math.cos(a)), y: Math.round(ry * Math.sin(a)) };
+  });
+}
+const floatingLabels = [
+  ...ring(skills.slice(0, INNER), 140, 112, 0),
+  ...ring(skills.slice(INNER), 215, 195, 18),
+].map((l, i) => ({
+  ...l,
+  amp: 6 + (i % 3) * 2,
+  dir: i % 2 === 0 ? -1 : 1,
+  duration: 5 + (i % 4) * 0.5,
+  delay: (i % 5) * 0.3,
+}));
 </script>
 <template>
   <section
@@ -31,8 +53,8 @@ const socialLinks = [
       class="pointer-events-none absolute inset-0 opacity-[0.035]"
       style="
         background-image:
-          linear-gradient(to right, white 1px, transparent 1px),
-          linear-gradient(to bottom, white 1px, transparent 1px);
+          linear-gradient(to right, var(--color-foreground) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--color-foreground) 1px, transparent 1px);
         background-size: 48px 48px;
       "
     />
@@ -177,32 +199,22 @@ const socialLinks = [
         </motion.div>
         <!-- Floating labels -->
         <motion.div
-          class="absolute left-4 top-24 rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted backdrop-blur"
-          :animate="{ y: [0, -8, 0] }"
-          :transition="{ duration: 5, repeat: Infinity, ease: 'easeInOut' }"
+          v-for="label in floatingLabels"
+          :key="label.name"
+          class="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted backdrop-blur"
+          :style="{
+            left: `calc(50% + ${label.x}px)`,
+            top: `calc(50% + ${label.y}px)`,
+          }"
+          :animate="{ y: [0, label.dir * label.amp, 0] }"
+          :transition="{
+            duration: label.duration,
+            delay: label.delay,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }"
         >
-          Java
-        </motion.div>
-        <motion.div
-          class="absolute right-2 top-32 rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted backdrop-blur"
-          :animate="{ y: [0, 8, 0] }"
-          :transition="{ duration: 6, repeat: Infinity, ease: 'easeInOut' }"
-        >
-          Vue
-        </motion.div>
-        <motion.div
-          class="absolute bottom-24 left-12 rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted backdrop-blur"
-          :animate="{ y: [0, -7, 0] }"
-          :transition="{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }"
-        >
-          Docker
-        </motion.div>
-        <motion.div
-          class="absolute bottom-16 right-8 rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted backdrop-blur"
-          :animate="{ y: [0, 7, 0] }"
-          :transition="{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }"
-        >
-          Azure
+          {{ label.name }}
         </motion.div>
       </motion.div>
     </div>

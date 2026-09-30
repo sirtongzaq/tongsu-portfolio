@@ -1,17 +1,42 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background: #070a0f; 
-  --color-surface: #111827; 
-  --color-surface-hover: #1e293b; 
-  --color-border: #1e293b; 
-  --color-foreground: #f8fafc; 
-  --color-muted: #94a3b8; 
-  --color-primary: #3b82f6; 
-  --color-primary-hover: #2563eb; 
-  /* Accent */
-  
-  --color-accent: #38bdf8;
+/* Theme palettes — dark is the default, light is opt-in via data-theme */
+:root {
+  color-scheme: dark;
+  --c-background: #070a0f;
+  --c-surface: #111827;
+  --c-surface-hover: #1e293b;
+  --c-border: #1e293b;
+  --c-foreground: #f8fafc;
+  --c-muted: #94a3b8;
+  --c-primary: #3b82f6;
+  --c-primary-hover: #2563eb;
+  --c-accent: #38bdf8;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --c-background: #f8fafc;
+  --c-surface: #ffffff;
+  --c-surface-hover: #f1f5f9;
+  --c-border: #e2e8f0;
+  --c-foreground: #0f172a;
+  --c-muted: #64748b;
+  --c-primary: #2563eb;
+  --c-primary-hover: #1d4ed8;
+  --c-accent: #0ea5e9;
+}
+
+@theme inline {
+  --color-background: var(--c-background);
+  --color-surface: var(--c-surface);
+  --color-surface-hover: var(--c-surface-hover);
+  --color-border: var(--c-border);
+  --color-foreground: var(--c-foreground);
+  --color-muted: var(--c-muted);
+  --color-primary: var(--c-primary);
+  --color-primary-hover: var(--c-primary-hover);
+  --color-accent: var(--c-accent);
 
   /* Font */
   --font-sans: "Inter", sans-serif;

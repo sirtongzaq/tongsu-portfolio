@@ -1,25 +1,8 @@
-```vue
 <script setup lang="ts">
 import MotionReveal from "../common/MotionReveal.vue";
-const skillsRow1 = [
-  { name: "Java", icon: "☕" },
-  { name: "Spring Boot", icon: "🌱" },
-  { name: "TypeScript", icon: "TS" },
-  { name: "Vue.js", icon: "V" },
-  { name: "React", icon: "⚛" },
-  { name: "Angular", icon: "A" },
-  { name: "NestJS", icon: "N" },
-];
+import { skills, toRows } from "../../data/skills";
 
-const skillsRow2 = [
-  { name: "Docker", icon: "🐳" },
-  { name: "Kubernetes", icon: "☸" },
-  { name: "Azure", icon: "☁" },
-  { name: "GitHub Actions", icon: "⚡" },
-  { name: "PostgreSQL", icon: "PG" },
-  { name: "MongoDB", icon: "M" },
-  { name: "Redis", icon: "R" },
-];
+const [skillsRow1 = [], skillsRow2 = []] = toRows(skills, 2);
 </script>
 
 <template>
