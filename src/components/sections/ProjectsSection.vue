@@ -37,33 +37,29 @@ const projects: Project[] = [
       "Tie-break wheel synced across every device",
       "Row Level Security, room expiry and batch cleanup on free tier",
     ],
-    technologies: ["SvelteKit", "Svelte 5", "Tailwind v4", "Supabase", "Vercel"],
+    technologies: [
+      "SvelteKit",
+      "Svelte 5",
+      "Tailwind v4",
+      "Supabase",
+      "Vercel",
+    ],
     github: "https://github.com/sirtongzaq/laewtae-app",
     demo: "https://laewtae-app.vercel.app",
   },
   {
-    title: "Project One",
+    title: "Diawon (เดี๋ยวโอน)",
+    slug: "diawon",
     description:
-      "A modern web application designed to solve a real-world problem with a scalable architecture.",
-    technologies: ["Vue", "TypeScript", "NestJS", "PostgreSQL"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    title: "Project Two",
-    description:
-      "Backend service providing REST APIs with authentication, data processing, and external service integrations.",
-    technologies: ["Java", "Spring Boot", "MongoDB", "Docker"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    title: "Project Three",
-    description:
-      "A cloud-native application deployed using containers and CI/CD automation.",
-    technologies: ["React", "Node.js", "Docker", "Azure"],
-    github: "#",
-    demo: "#",
+      "A bill-splitting web app for friends. Split by item or evenly, share one link, and each person pays with their own PromptPay QR, then uploads a slip for the owner to approve.",
+    highlights: [
+      "Realtime slip alerts and approval status via Supabase Broadcast",
+      "Receipt scanning in the browser with Tesseract.js (no paid AI)",
+      "Exact money math in satang with largest-remainder allocation",
+    ],
+    technologies: ["Next.js", "React 19", "Tailwind v4", "Supabase", "Vercel"],
+    github: "https://github.com/sirtongzaq/diawon-app",
+    demo: "https://diawon-app.vercel.app",
   },
 ];
 </script>
@@ -121,29 +117,39 @@ const projects: Project[] = [
                 class="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
               />
               <template v-else>
-              <!-- Decorative grid -->
-              <div
-                class="absolute inset-0 opacity-30"
-                style="
-                  background-image:
-                    linear-gradient(
-                      to right,
-                      color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
-                      transparent 1px
-                    ),
-                    linear-gradient(
-                      to bottom,
-                      color-mix(in srgb, var(--color-foreground) 6%, transparent) 1px,
-                      transparent 1px
-                    );
-                  background-size: 24px 24px;
-                "
-              />
-              <div
-                class="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-2xl font-bold text-primary transition duration-300 group-hover:scale-110"
-              >
-                {{ String(index + 1).padStart(2, "0") }}
-              </div>
+                <!-- Decorative grid -->
+                <div
+                  class="absolute inset-0 opacity-30"
+                  style="
+                    background-image:
+                      linear-gradient(
+                        to right,
+                        color-mix(
+                            in srgb,
+                            var(--color-foreground) 6%,
+                            transparent
+                          )
+                          1px,
+                        transparent 1px
+                      ),
+                      linear-gradient(
+                        to bottom,
+                        color-mix(
+                            in srgb,
+                            var(--color-foreground) 6%,
+                            transparent
+                          )
+                          1px,
+                        transparent 1px
+                      );
+                    background-size: 24px 24px;
+                  "
+                />
+                <div
+                  class="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-2xl font-bold text-primary transition duration-300 group-hover:scale-110"
+                >
+                  {{ String(index + 1).padStart(2, "0") }}
+                </div>
               </template>
             </div>
             <!-- Content -->
